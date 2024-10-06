@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <header className="bg-white text-primary py-4 px-6 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-[#FFA500]">DEVANSHI NX</h1>
+        <h1 className="text-3xl font-bold text-[#FFA500]">DEVANSHI </h1>
         <nav>
           <ul className="flex space-x-6">
             {['Home', 'About Us', 'Amenities', 'Events', 'Gallery', 'Contact Us'].map((item) => (
