@@ -1,39 +1,40 @@
 import Image from 'next/image';
-import Link from 'next/link';  // Add this line
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
+
 export default function Home() {
   const navItems = [
+    { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Amenities', href: '/amenities' },
     { name: 'Events', href: '/events' },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'Contact Us', href: '/contact' }
   ];
 
   return (
     <main className="min-h-screen bg-[#FFF9F0]">
-      <header className="bg-white py-4 px-6 flex justify-between items-center">
-        <Link href="/" className="text-3xl font-bold text-[#D4AF37]">
-          THE VENUE
-        </Link>
-        <nav>
-          <ul className="flex space-x-6">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link 
-                  href={item.href}
-                  className="text-[#333] hover:text-[#D4AF37] transition-colors"
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <header className="bg-white py-4 px-6">
+        <div className="container mx-auto">
+          <nav className="flex justify-center items-center">
+            <ul className="flex space-x-6">
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href}
+                    className="text-sm uppercase font-medium text-[#D4AF37] hover:text-[#B8860B] transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <section className="relative h-screen">
@@ -42,33 +43,36 @@ export default function Home() {
           alt="Elegant Venue"
           layout="fill"
           objectFit="cover"
+          priority
         />
         <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white">
-          <h2 className="text-5xl font-bold mb-8 text-center">Elegance Redefined</h2>
-          <p className="text-xl mb-8 text-center">Your Premier Event Destination</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">DEVANSHI NX</h1>
+          <h2 className="text-2xl md:text-3xl font-light mb-8 text-center">Designing your perfect day, the way you imagined</h2>
           <Button variant="outline" className="text-white border-white hover:bg-white hover:text-[#D4AF37]">
-            Explore More
+            Contact Us
           </Button>
         </div>
       </section>
 
       <section className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {['Elegant Spaces', 'Exquisite Cuisine', 'Impeccable Service'].map((feature) => (
-            <Card key={feature} className="bg-white">
-              <CardContent className="p-6 text-center">
-                <Image
-                  src={`/${feature.toLowerCase().replace(' ', '-')}-icon.png`}
-                  alt={feature}
-                  width={64}
-                  height={64}
-                  className="mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold mb-2">{feature}</h3>
-                <p className="text-[#666]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="flex flex-col md:flex-row items-center mb-16">
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <Image
+              src="/banquet-image.jpg"
+              alt="Banquet Hall"
+              width={500}
+              height={300}
+              objectFit="cover"
+              className="rounded-lg"
+            />
+          </div>
+          <div className="md:w-1/2 md:pl-8">
+            <h3 className="text-2xl font-light text-[#D4AF37] mb-2">Welcome to Devanshi NX Banquets</h3>
+            <h4 className="text-xl font-bold text-[#8B4513] mb-4">Best banquet hall in Navi Mumbai for Exclusive events, priceless memories</h4>
+            <p className="text-gray-600">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
         </div>
 
         {/* New Amenities Section */}
@@ -175,74 +179,87 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">What Our Clients Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((testimonial) => (
-              <Card key={testimonial} className="bg-white">
-                <CardContent className="p-6">
-                  <p className="mb-4 text-[#666]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <p className="font-semibold">- Client {testimonial}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        
 
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-3xl font-bold mb-6 text-center">Book Your Event</h2>
-          <form className="max-w-2xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <Input placeholder="Name" className="bg-[#FFF9F0]" />
-              <Input placeholder="Email" type="email" className="bg-[#FFF9F0]" />
-              <Input placeholder="Phone" type="tel" className="bg-[#FFF9F0]" />
-              <Input placeholder="Date" type="date" className="bg-[#FFF9F0]" />
+        {/* Updated Booking Form */}
+        <div className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
+          <form className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input placeholder="Your Name" className="bg-white" />
+              <Input placeholder="Email" type="email" className="bg-white" />
+              <Input placeholder="Phone no" type="tel" className="bg-white" />
+              <Input placeholder="dd-mm-yy" type="text" className="bg-white" />
             </div>
-            <Textarea placeholder="Message" className="mb-4 bg-[#FFF9F0]" />
-            <Button type="submit" className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-white">
-              Book Now
-            </Button>
+            <Input placeholder="Subject" className="bg-white" />
+            <Textarea placeholder="Message" className="bg-white" rows={4} />
+            <div className="text-center">
+              <Button type="submit" className="bg-[#8B4513] hover:bg-[#6F3609] text-white px-8 py-2">
+                Submit
+              </Button>
+            </div>
           </form>
         </div>
       </section>
 
-      <footer className="bg-[#333] text-white py-8 mt-16">
+      {/* Updated Footer */}
+      <footer className="bg-[#F5E6D3] text-[#8B4513] py-8 mt-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
+            <div className="flex justify-center space-x-8">
+              <div>
+                <h3 className="font-semibold">Banquet Address</h3>
+                <p>Plot No. L-1, Sector 6(W), New Panvel (W),</p>
+                <p>Navi Mumbai 410206</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Contact us</h3>
+                <p>9619331131</p>
+                <p>9619441141</p>
+              </div>
+              <div>
+                <h3 className="font-semibold">Email Us</h3>
+                <p>devanshievents@gmail.com</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-center mb-8">
+            <Input placeholder="Your Email Address" className="bg-white mr-2 w-64" />
+            <Button className="bg-[#8B4513] hover:bg-[#6F3609] text-white">
+              Subscribe
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">The Venue</h3>
-              <p>123 Event Street, City, State 12345</p>
-              <p>Phone: (123) 456-7890</p>
-              <p>Email: info@thevenue.com</p>
+              <h3 className="font-bold mb-2">About Devanshi Banquets</h3>
+              <p>With a resolve to become one of the most sought-after wedding event planning services, Team Devanshi Banquets has been delivering services that are a class apart from the rest, designing events, etc. We believe in bringing fresh ideas to the table, destination events, etc. We believe in bringing fresh ideas to the table, thus creating your special day the way you imagined it to be.</p>
             </div>
             <div>
-              <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+              <h3 className="font-bold mb-2">Our Events</h3>
               <ul>
-                {['Home', 'About', 'Services', 'Gallery', 'Contact'].map((item) => (
-                  <li key={item} className="mb-2">
-                    <a href={`/${item.toLowerCase()}`} className="hover:text-[#D4AF37]">{item}</a>
+                <li>Wedding</li>
+                <li>Engagement</li>
+                <li>Birthday Party</li>
+                <li>Corporate Events</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-2">Quick Links</h3>
+              <ul>
+                {navItems.map((item) => (
+                  <li key={item.name} className="mb-1">
+                    <Link href={item.href} className="hover:underline">{item.name}</Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="text-xl font-bold mb-4">Follow Us</h3>
-              <div className="flex space-x-4">
-                {['facebook', 'twitter', 'instagram', 'linkedin'].map((social) => (
-                  <a key={social} href={`#${social}`} className="hover:text-[#D4AF37]">
-                    <Image
-                      src={`/${social}-icon.png`}
-                      alt={`${social} icon`}
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
-          <div className="mt-8 text-center">
-            <p>&copy; 2024 The Venue. All rights reserved.</p>
+
+          <div className="text-center text-sm">
+            <p>Copyright © 2023. All rights reserved | Crafted by 504 LABS</p>
           </div>
         </div>
       </footer>
