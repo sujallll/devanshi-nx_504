@@ -45,7 +45,7 @@ export default function AmenitiesPage() {
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-[#8B4513] mb-2">Amenities</h1>
-          <h2 className="text-2xl font-semibold text-[#D4AF37] mb-4">at</h2>
+          <h2 className="text-2xl font-semibold text-[#D4AF37] mb-4">at sample</h2>
           <h3 className="text-2xl font-semibold text-[#D4AF37] mb-4">Devanshi NX Banquets</h3>
           <Image src="/leaf-icon.png" alt="Leaf decoration" width={100} height={50} className="mx-auto" />
         </div>
