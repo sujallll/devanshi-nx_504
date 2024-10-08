@@ -1,10 +1,16 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
-export default function AmenitiesPage() {
+
+export default function Amenities() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
@@ -13,7 +19,6 @@ export default function AmenitiesPage() {
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact Us', href: '/contact' }
   ];
-
   const amenities = [
     { icon: '/people-icon.png', title: '1700 People intake', description: 'Since the hall is 12,500 sq ft huge enough, it has the capacity which can fill upto 1700 guests at a time, without any hassle and chaotic atmosphere around' },
     { icon: '/people-icon.png', title: '1700 People intake', description: 'Since the hall is 12,500 sq ft huge enough, it has the capacity which can fill upto 1700 guests at a time, without any hassle and chaotic atmosphere around' },
@@ -25,21 +30,49 @@ export default function AmenitiesPage() {
 
   return (
     <main className="min-h-screen bg-[#FFF9F0]">
-      <header className="bg-white py-4 px-6">
-        <nav className="flex justify-center items-center">
-          <ul className="flex space-x-6">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link 
-                  href={item.href}
-                  className={`text-sm uppercase font-medium ${item.name === 'Amenities' ? 'text-[#8B4513]' : 'text-[#D4AF37]'} hover:text-[#B8860B] transition-colors duration-200`}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <header className="bg-[#D6C29F] py-4 px-6 shadow-md">
+        <div className="container mx-auto">
+          <nav className="flex items-center justify-between flex-wrap">
+            <div className="flex items-center flex-shrink-0 mr-6">
+              <Image
+                src="/images/logo.png"
+                alt="Devanshi NX Logo"
+                width={50}
+                height={50}
+                className="mr-2"
+              />
+            </div>
+            <div className="block lg:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="flex items-center px-3 py-2 border rounded text-[#8B4513] border-[#D4AF37] hover:text-[#B8860B] hover:border-[#B8860B]"
+              >
+                <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <title>Menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+              </button>
+            </div>
+            <div className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${isMenuOpen ? '' : 'hidden'}`}>
+              <div className="text-sm lg:flex-grow text-center">
+                {navItems.map((item) => (
+                  <Link 
+                    key={item.name}
+                    href={item.href}
+                    className="block mt-4 lg:inline-block lg:mt-0 text-[#8B4513] hover:text-[#B8860B] mr-4"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              <div>
+                <Button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-[#D4AF37] hover:bg-white mt-4 lg:mt-0 bg-[#D4AF37]">
+                  Book Now
+                </Button>
+              </div>
+            </div>
+          </nav>
+        </div>
       </header>
 
       <section className="container mx-auto px-4 py-16">

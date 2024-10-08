@@ -100,7 +100,7 @@ export default function Home() {
             />
           </div>
           <div className="md:w-1/2 md:pl-8">
-            <h3 className="text-2xl font-light text-[#D4AF37] mb-2">Welcome to Devanshi NX Banquets</h3>
+            <h3 className="text-2xl font-light text-[#D4AF37] mb-2">Welcome to Devanshi NX</h3>
             <h4 className="text-xl font-bold text-[#8B4513] mb-4">Best banquet hall in Navi Mumbai for Exclusive events, priceless memories</h4>
           {/* <p className="text-gray-600">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
