@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#FFF9F0]">
-      <header className="bg-white py-4 px-6 shadow-md">
+      <header className="bg-[#D6C29F] py-4 px-6 shadow-md">
         <div className="container mx-auto">
           <nav className="flex items-center justify-between flex-wrap">
             <div className="flex items-center flex-shrink-0 mr-6">
