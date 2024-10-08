@@ -65,3 +65,9 @@ body {
     color: hsl(var(--foreground));
   }
 }
+
+.leaf-decoration {
+  width: 155.631px;
+  height: 215.754px;
+  transform: rotate(-114.199deg);
+}
