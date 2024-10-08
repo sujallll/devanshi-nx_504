@@ -8,16 +8,16 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 
-export default function Home() {
+export default function Contact() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Home', href: '/home' },
+    { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Amenities', href: '/amenities' },
     { name: 'Events', href: '/events' },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact Us', href: '/' }
+    { name: 'Contact Us', href: '/contact' }
   ];
 
   return (
