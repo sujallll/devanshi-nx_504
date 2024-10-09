@@ -128,7 +128,6 @@ export default function Home() {
                 title: '150 People Capacity',
                 items: [
                   'Seats for half of the group',
-                  'Standing room for others',
                   '150 people at a time',
                   'Efficient use of space for diverse event types'
                 ]
@@ -212,7 +211,7 @@ export default function Home() {
               </div>
               <div className={`w-full md:w-1/2 ${event.align === 'right' ? 'md:pr-4' : 'md:pl-4'} bg-[#F5E6D3] p-6 rounded-lg flex flex-col justify-center relative shadow-md`}>
                 <p className="text-[#666] mb-4">{event.description}</p>
-                <Link href={`/events/${event.title.toLowerCase()}`} className="text-[#8B4513] font-semibold hover:underline">
+                <Link href={`/events`} className="text-[#8B4513] font-semibold hover:underline">
                   Read more
                 </Link>
                 <Image 
