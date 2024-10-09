@@ -29,19 +29,28 @@ export default function Events() {
 
 
 
+  const scrollToBookingForm = () => {
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+      bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#FFF9F0]">
       <header className="bg-[#D6C29F] py-4 px-6 shadow-md">
         <div className="container mx-auto">
           <nav className="flex items-center justify-between flex-wrap">
             <div className="flex items-center flex-shrink-0 mr-6">
+            <Link href="/">
               <Image
                 src="/images/logo.png"
                 alt="Devanshi NX Logo"
-                width={50}
+                width={100}
                 height={50}
                 className="mr-2"
               />
+              </Link>
             </div>
             <div className="block lg:hidden">
               <button
@@ -55,19 +64,19 @@ export default function Events() {
               </button>
             </div>
             <div className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${isMenuOpen ? '' : 'hidden'}`}>
-              <div className="text-sm lg:flex-grow text-center">
+            <div className="text-center text-xl lg:flex-grow">
                 {navItems.map((item) => (
                   <Link 
                     key={item.name}
                     href={item.href}
-                    className="block mt-4 lg:inline-block lg:mt-0 text-[#8B4513] hover:text-[#B8860B] mr-4"
+                    className="block mt-4 lg:inline-block lg:mt-0 text-[#8B4513] hover:text-[#B8860B] mr-8"
                   >
                     {item.name}
                   </Link>
                 ))}
               </div>
               <div>
-                <Button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-[#D4AF37] hover:bg-white mt-4 lg:mt-0 bg-[#D4AF37]">
+                <Button onClick={scrollToBookingForm} className="inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513]">
                   Book Now
                 </Button>
               </div>
@@ -113,7 +122,7 @@ export default function Events() {
         </div>
 
         {/* Booking Form */}
-        <div className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto mt-16">
+        <div id="booking-form" className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

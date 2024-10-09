@@ -53,12 +53,12 @@ export default function Home() {
               </button>
             </div>
             <div className={`w-full block flex-grow lg:flex lg:items-center lg:w-auto ${isMenuOpen ? '' : 'hidden'}`}>
-              <div className="text-sm lg:flex-grow text-center">
+            <div className="text-center text-xl lg:flex-grow">
                 {navItems.map((item) => (
                   <Link 
                     key={item.name}
                     href={item.href}
-                    className="block mt-4 lg:inline-block lg:mt-0 text-[#8B4513] hover:text-[#B8860B] mr-4"
+                    className="block mt-4 lg:inline-block lg:mt-0 text-[#8B4513] hover:text-[#B8860B] mr-8"
                   >
                     {item.name}
                   </Link>
