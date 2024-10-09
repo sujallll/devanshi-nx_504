@@ -26,13 +26,9 @@ export default function Home() {
         <div className="container mx-auto">
           <nav className="flex items-center justify-between flex-wrap">
             <div className="flex items-center flex-shrink-0 mr-6">
-              <Image
-                src="/images/logo.png"
-                alt="Devanshi NX Logo"
-                width={50}
-                height={50}
-                className="mr-2"
-              />
+              <div className="text-[#8B4513] font-bold text-xl">
+                LOGO
+              </div>
             </div>
             <div className="block lg:hidden">
               <button
