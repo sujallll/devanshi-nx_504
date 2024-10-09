@@ -75,10 +75,10 @@ export default function Home() {
           muted
           playsInline
         >
-          <source src="/images/background-video.mp4" type="video/mp4" />
+          <source src="/images/new-render.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
+        <div className="absolute inset-0 bg-black bg-opacity-10 flex flex-col items-center justify-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">DEVANSHI NX</h1>
           <h2 className="text-2xl md:text-3xl font-light mb-8 text-center">Designing your perfect day, the way you imagined</h2>
           <Button variant="outline" className="text-white border-white hover:bg-white hover:text-[#D4AF37]">
