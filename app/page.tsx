@@ -20,6 +20,13 @@ export default function Home() {
     { name: 'Contact Us', href: '/contact' }
   ];
 
+  const scrollToBookingForm = () => {
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+      bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#FFF9F0]">
       <header className="bg-[#D6C29F] py-4 px-6 shadow-md">
@@ -29,7 +36,7 @@ export default function Home() {
               <Image
                 src="/images/logo.png"
                 alt="Devanshi NX Logo"
-                width={50}
+                width={100}
                 height={50}
                 className="mr-2"
               />
@@ -58,7 +65,7 @@ export default function Home() {
                 ))}
               </div>
               <div>
-                <Button className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-[#D4AF37] hover:bg-white mt-4 lg:mt-0 bg-[#D4AF37]">
+                <Button onClick={scrollToBookingForm} className="inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513]">
                   Book Now
                 </Button>
               </div>
@@ -79,9 +86,9 @@ export default function Home() {
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black bg-opacity-10 flex flex-col items-center justify-center text-white">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">DEVANSHI NX</h1>
-          <h2 className="text-2xl md:text-3xl font-light mb-8 text-center">Designing your perfect day, the way you imagined</h2>
-          <Button variant="outline" className="text-white border-white hover:bg-white hover:text-[#D4AF37]">
+          <img src="/images/englogo.png" alt="Devanshi NX Logo" width={400} height={200} className="mb-8" />
+          <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">Designing your perfect day, the way you imagined</h2>
+          <Button onClick={scrollToBookingForm} className="inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513]">
             Book Now
           </Button>
         </div>
@@ -228,7 +235,7 @@ export default function Home() {
         </div>
 
         {/* Updated Booking Form */}
-        <div className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
+        <div id="booking-form" className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
