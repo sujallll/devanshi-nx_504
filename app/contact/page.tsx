@@ -118,6 +118,24 @@ export default function Contact() {
         </div>
       </header>
 
+          <div className="flex flex-col items-center mb-8">
+            <h2 className="text-3xl font-bold text-center text-[#8B4513]">
+              Contact Us
+            </h2>
+            <h2 className="text-3xl font-bold text-center text-[#8B4513] mt-2">
+              Devanshi NX Banquets
+            </h2>
+
+            <Image 
+              src="/images/leafevents.png" 
+              alt="Leaf decoration" 
+              width={100} 
+              height={50}
+              className="mt-4" 
+              style={{ marginLeft: '210px', marginTop: '-45px' }}
+            />
+          </div>
+
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="bg-[#F5E6D3] p-6 rounded-lg shadow-md text-center">
