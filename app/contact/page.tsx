@@ -6,6 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+interface IFormInput {
+  name: string;
+  email: string;
+  phone: string;
+  date: Date;
+  subject: string;
+  message: string;
+}
 
 export default function Contact() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +35,38 @@ export default function Contact() {
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
       bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<IFormInput>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIZAV5cfWXXVNQ3Jk4_EOhsgPOBmcOd4HeE5w7Lr_qwhdZIs3htfBxSZB9n1oBBPPtTw/exec';
+
+    try {
+      data.date = data.date.toLocaleDateString('en-GB'); // This will format the date as dd/mm/yyyy
+
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      setSubmitStatus('success');
+      reset();
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

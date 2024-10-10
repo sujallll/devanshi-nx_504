@@ -6,7 +6,19 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { GalleryWithTab } from '@/components/ui/GalleryWithTab';
 
+interface IFormInput {
+  name: string;
+  email: string;
+  phone: string;
+  date: Date;
+  subject: string;
+  message: string;
+}
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,40 +32,42 @@ export default function Home() {
     { name: 'Contact Us', href: '/contact' }
   ];
 
-  const galleryImages = [
-    { src: '/banquet-hall-1.jpg', alt: 'Banquet Hall 1' },
-    { src: '/banquet-hall-2.jpg', alt: 'Banquet Hall 2' },
-    { src: '/banquet-hall-3.jpg', alt: 'Banquet Hall 3' },
-    { src: '/banquet-hall-4.jpg', alt: 'Banquet Hall 4' },
-    { src: '/banquet-hall-5.jpg', alt: 'Banquet Hall 5' },
-    { src: '/banquet-hall-6.jpg', alt: 'Banquet Hall 6' },
-    { src: '/banquet-hall-7.jpg', alt: 'Banquet Hall 7' },
-    { src: '/banquet-hall-8.jpg', alt: 'Banquet Hall 8' },
-    { src: '/banquet-hall-9.jpg', alt: 'Banquet Hall 9' },
-    { src: '/banquet-hall-10.jpg', alt: 'Banquet Hall 10' },
-    { src: '/banquet-hall-11.jpg', alt: 'Banquet Hall 11' },
-    { src: '/banquet-hall-12.jpg', alt: 'Banquet Hall 12' },
-  ];
-
-  const eventImages = [
-    { src: '/event-1.jpg', alt: 'Event 1' },
-    { src: '/event-2.jpg', alt: 'Event 2' },
-    { src: '/event-3.jpg', alt: 'Event 3' },
-    { src: '/event-4.jpg', alt: 'Event 4' },
-    { src: '/event-5.jpg', alt: 'Event 5' },
-    { src: '/event-6.jpg', alt: 'Event 6' },
-    { src: '/event-7.jpg', alt: 'Event 7' },
-    { src: '/event-8.jpg', alt: 'Event 8' },
-    { src: '/event-9.jpg', alt: 'Event 9' },
-    { src: '/event-10.jpg', alt: 'Event 10' },
-    { src: '/event-11.jpg', alt: 'Event 11' },
-    { src: '/event-12.jpg', alt: 'Event 12' },
-  ];
-
   const scrollToBookingForm = () => {
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
       bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<IFormInput>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIZAV5cfWXXVNQ3Jk4_EOhsgPOBmcOd4HeE5w7Lr_qwhdZIs3htfBxSZB9n1oBBPPtTw/exec';
+
+    try {
+      data.date = data.date.toLocaleDateString('en-GB'); // This will format the date as dd/mm/yyyy
+
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      setSubmitStatus('success');
+      reset();
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -106,65 +120,114 @@ export default function Home() {
         </div>
       </header>
       <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-[#8B4513] mb-2">Gallery</h1>
-          <Image src="/leaf-icon.png" alt="Leaf decoration" width={100} height={50} className="mx-auto" />
+        <div className="flex flex-col items-center mb-8">
+          <h2 className="text-3xl font-bold text-center text-[#8B4513] mt-2">
+            Gallery
+          </h2>
+          <Image 
+            src="/images/leafevents.png" 
+            alt="Leaf decoration" 
+            width={100} 
+            height={50}
+            className="mt-4" 
+            style={{ marginLeft: '210px', marginTop: '-45px' }}
+          />
         </div>
 
         <div className="mb-16">
-          <h2 className="text-2xl font-semibold text-[#D4AF37] mb-8 text-center">Banquet Hall</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="relative aspect-w-16 aspect-h-9">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-16">
-          <h2 className="text-2xl font-semibold text-[#D4AF37] mb-8 text-center">Events</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {eventImages.map((image, index) => (
-              <div key={index} className="relative aspect-w-16 aspect-h-9">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Booking Form */}
-        <div id="booking-form" className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
-          <form className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input placeholder="Your Name" className="bg-white" />
-              <Input placeholder="Email" type="email" className="bg-white" />
-              <Input placeholder="Phone no" type="tel" className="bg-white" />
-              <Input placeholder="dd-mm-yy" type="text" className="bg-white" />
-            </div>
-            <Input placeholder="Subject" className="bg-white" />
-            <Textarea placeholder="Message" className="bg-white" rows={4} />
-            <div className="text-center">
-              <Button type="submit" className="bg-[#8B4513] hover:bg-[#6F3609] text-white px-8 py-2">
-                Submit
-              </Button>
-            </div>
-          </form>
+          <GalleryWithTab />
         </div>
       </section>
+
+      {/* Booking Form */}
+      <div id="booking-form" className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Input
+                {...register("name", { required: "Name is required" })}
+                placeholder="Your Name"
+                className="bg-white"
+              />
+              {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+            </div>
+            <div>
+              <Input
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address"
+                  }
+                })}
+                placeholder="Email"
+                type="email"
+                className="bg-white"
+              />
+              {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+            </div>
+            <div>
+              <Input
+                {...register("phone", { required: "Phone number is required" })}
+                placeholder="Phone no"
+                type="tel"
+                className="bg-white"
+              />
+              {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
+            </div>
+            <div>
+              <Controller
+                control={control}
+                name="date"
+                rules={{ required: "Date is required" }}
+                render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    selected={value}
+                    onChange={(date: Date) => onChange(date)}
+                    dateFormat="dd-MM-yyyy"
+                    placeholderText="dd-mm-yy"
+                    className="bg-white w-full p-2 rounded-md"
+                  />
+                )}
+              />
+              {errors.date && <span className="text-red-500 text-sm">{errors.date.message}</span>}
+            </div>
+          </div>
+          <div>
+            <Input
+              {...register("subject", { required: "Subject is required" })}
+              placeholder="Subject"
+              className="bg-white"
+            />
+            {errors.subject && <span className="text-red-500 text-sm">{errors.subject.message}</span>}
+          </div>
+          <div>
+            <Textarea
+              {...register("message", { required: "Message is required" })}
+              placeholder="Message"
+              className="bg-white"
+              rows={4}
+            />
+            {errors.message && <span className="text-red-500 text-sm">{errors.message.message}</span>}
+          </div>
+          <div className="text-center">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className={`inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit'}
+            </Button>
+          </div>
+        </form>
+        {submitStatus === 'success' && (
+          <p className="mt-4 text-green-600 text-center">Form submitted successfully!</p>
+        )}
+        {submitStatus === 'error' && (
+          <p className="mt-4 text-red-600 text-center">An error occurred. Please try again.</p>
+        )}
+      </div>
 
       {/* Footer */}
       <footer className="bg-[#F5E6D3] text-[#8B4513] py-8 mt-16">

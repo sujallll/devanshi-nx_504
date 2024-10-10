@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function Home() {
@@ -24,6 +27,38 @@ export default function Home() {
     const bookingForm = document.getElementById('booking-form');
     if (bookingForm) {
       bookingForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm<IFormInput>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwIZAV5cfWXXVNQ3Jk4_EOhsgPOBmcOd4HeE5w7Lr_qwhdZIs3htfBxSZB9n1oBBPPtTw/exec';
+
+    try {
+      data.date = data.date.toLocaleDateString('en-GB'); // This will format the date as dd/mm/yyyy
+
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      setSubmitStatus('success');
+      reset();
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -77,11 +112,23 @@ export default function Home() {
       </header>
 
       <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-[#8B4513] mb-2">About</h1>
-          <h2 className="text-2xl font-semibold text-[#D4AF37] mb-4">Devanshi NX Banquets</h2>
-          <Image src="/leaf-icon.png" alt="Leaf decoration" width={100} height={50} className="mx-auto" />
-        </div>
+          <div className="flex flex-col items-center mb-8">
+            <h2 className="text-3xl font-bold text-center text-[#8B4513]">
+              About Us
+            </h2>
+            <h2 className="text-3xl font-bold text-center text-[#8B4513] mt-1">
+              Devanshi NX Banquets
+            </h2>
+
+            <Image 
+              src="/images/leafevents.png" 
+              alt="Leaf decoration" 
+              width={100} 
+              height={50}
+              className="mt-4" 
+              style={{ marginLeft: '300px', marginTop: '-45px' }}
+            />
+          </div>
 
         <div className="flex flex-col md:flex-row items-center bg-[#F5E6D3] rounded-lg overflow-hidden mb-16">
           <div className="md:w-1/2 p-8">
@@ -91,14 +138,14 @@ export default function Home() {
               We at Tiarra banquets are here to provide fresh ideas, innovative styling
               and creative inputs to pull your dream with huge space.
             </p>
-            <Button className="bg-[#8B4513] hover:bg-[#6F3609] text-white">BOOK</Button>
+            <Button onClick={scrollToBookingForm} className="inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513]">Book</Button>
           </div>
           <div className="md:w-1/2">
             <Image
-              src="/banquet-hall.jpg"
+              src="/images/aboutus.png"
               alt="Luxurious banquet hall with purple decor"
-              width={600}
-              height={400}
+              width={500}
+              height={200}
               className="object-cover w-full h-full"
             />
           </div>
@@ -106,7 +153,7 @@ export default function Home() {
 
         <div className="mb-16">
           <Image
-            src="/wedding-couple.jpg"
+            src="/images/about.png"
             alt="Happy wedding couple"
             width={1200}
             height={600}
@@ -114,24 +161,94 @@ export default function Home() {
           />
         </div>
 
-        {/* Booking Form */}
+        {/* Updated Booking Form */}
         <div id="booking-form" className="bg-[#F5E6D3] p-8 rounded-lg shadow-md max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-center text-[#8B4513]">Booking Form</h2>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input placeholder="Your Name" className="bg-white" />
-              <Input placeholder="Email" type="email" className="bg-white" />
-              <Input placeholder="Phone no" type="tel" className="bg-white" />
-              <Input placeholder="dd-mm-yy" type="text" className="bg-white" />
+              <div>
+                <Input
+                  {...register("name", { required: "Name is required" })}
+                  placeholder="Your Name"
+                  className="bg-white"
+                />
+                {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+              </div>
+              <div>
+                <Input
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                  placeholder="Email"
+                  type="email"
+                  className="bg-white"
+                />
+                {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+              </div>
+              <div>
+                <Input
+                  {...register("phone", { required: "Phone number is required" })}
+                  placeholder="Phone no"
+                  type="tel"
+                  className="bg-white"
+                />
+                {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
+              </div>
+              <div>
+                <Controller
+                  control={control}
+                  name="date"
+                  rules={{ required: "Date is required" }}
+                  render={({ field: { onChange, value } }) => (
+                    <DatePicker
+                      selected={value}
+                      onChange={(date: Date) => onChange(date)}
+                      dateFormat="dd-MM-yyyy"
+                      placeholderText="dd-mm-yy"
+                      className="bg-white w-full p-2 rounded-md"
+                    />
+                  )}
+                />
+                {errors.date && <span className="text-red-500 text-sm">{errors.date.message}</span>}
+              </div>
             </div>
-            <Input placeholder="Subject" className="bg-white" />
-            <Textarea placeholder="Message" className="bg-white" rows={4} />
+            <div>
+              <Input
+                {...register("subject", { required: "Subject is required" })}
+                placeholder="Subject"
+                className="bg-white"
+              />
+              {errors.subject && <span className="text-red-500 text-sm">{errors.subject.message}</span>}
+            </div>
+            <div>
+              <Textarea
+                {...register("message", { required: "Message is required" })}
+                placeholder="Message"
+                className="bg-white"
+                rows={4}
+              />
+              {errors.message && <span className="text-red-500 text-sm">{errors.message.message}</span>}
+            </div>
             <div className="text-center">
-              <Button type="submit" className="bg-[#8B4513] hover:bg-[#6F3609] text-white px-8 py-2">
-                Submit
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className={`inline-block text-sm px-4 py-2 leading-none text-white hover:border-transparent hover:text-[#8B4513] hover:bg-white mt-4 lg:mt-0 bg-[#8B4513] ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit'}
               </Button>
             </div>
           </form>
+          {submitStatus === 'success' && (
+            <p className="mt-4 text-green-600 text-center">Form submitted successfully!</p>
+          )}
+          {submitStatus === 'error' && (
+            <p className="mt-4 text-red-600 text-center">An error occurred. Please try again.</p>
+          )}
         </div>
       </section>
 
