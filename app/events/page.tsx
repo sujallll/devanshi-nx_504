@@ -145,9 +145,9 @@ export default function Events() {
             />
           </div>
 
-        <div className="space-y-16">
+        <div className="space-y-16 mb-24"> {/* Changed from space-y-16 to space-y-16 mb-24 */}
           {events.map((event, index) => (
-            <div key={event.title} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}>
+            <div key={event.title} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 ${index === events.length - 1 ? 'mb-16' : ''}`}> {/* Added conditional mb-16 class */}
               <div className="w-full md:w-1/2">
                 <Image
                   src={event.image}

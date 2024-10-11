@@ -165,20 +165,20 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[{
                 icon: '/images/tv-icon.png',
-                title: '55-Inch TV and Projector',
+                title: ' Projector',
                 description: 'Designed to give the attendees a visual experience, making it easier for them to follow along with presentations.'
               },
               {
                 icon: '/images/spacious-icon.png',
                 title: 'Spacious Rooms',
-                description: 'Our banquet halls are specially designed to cater large groups of people. The rooms are well-lit and properly ventilated to ensure comfort.'
+                description: 'Our banquet halls are specially designed to cater large groups of people. The 8 rooms are well-lit and properly ventilated to ensure comfort.'
               },
               {
                 icon: '/images/people-icon.png',
-                title: '150 People Capacity',
+                title: '300 People Capacity',
                 items: [
                   'Seats for half of the group',
-                  '150 people at a time',
+                  '300 people at a time',
                   'Efficient use of space for diverse event types'
                 ]
               }].map((amenity, index) => (
@@ -212,7 +212,7 @@ export default function Home() {
               Events Held
             </h2>
             <h2 className="text-3xl font-bold text-center text-[#8B4513] mt-2">
-              At The Venue
+              At Devanshi NX
             </h2>
 
             <Image 
